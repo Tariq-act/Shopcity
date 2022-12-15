@@ -35,7 +35,6 @@ const ProductScreen = () => {
   const addToCartHandler = () => {
     navigate(`/cart/${id}?qty=${qty}`);
   };
-  console.log(product.rating);
 
   return (
     <>
