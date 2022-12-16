@@ -19,3 +19,11 @@ h1 {
 .rating span {
   margin: 0.1rem;
 }
+
+.custom-hover-link {
+  text-decoration: none;
+}
+
+.custom-hover-link:hover {
+  text-decoration: underline;
+}

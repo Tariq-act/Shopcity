@@ -10,7 +10,7 @@ const Product = ({ product }) => {
         <Card.Img src={product.image} variant='top'></Card.Img>
       </Link>
       <Card.Body>
-        <Link to={`/product/${product._id}`}>
+        <Link to={`/product/${product._id}`} className='custom-hover-link'>
           <Card.Title as='div'>
             <strong>{product.name}</strong>
           </Card.Title>
