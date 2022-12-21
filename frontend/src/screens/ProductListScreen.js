@@ -5,7 +5,12 @@ import { Table, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Message } from '../components/Message';
 import Loader from '../components/Loader';
-import { deleteProduct, listProducts } from '../actions/productActions';
+import {
+  createProduct,
+  deleteProduct,
+  listProducts,
+} from '../actions/productActions';
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 
 const ProductListScreen = () => {
   const dispatch = useDispatch();
@@ -21,24 +26,39 @@ const ProductListScreen = () => {
     error: errorDelete,
   } = productDelete;
 
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    success: successCreate,
+    loading: loadingCreate,
+    error: errorCreate,
+    product: createdProduct,
+  } = productCreate;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const createProductHandler = () => {};
-
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
-    } else {
+    dispatch({ type: PRODUCT_CREATE_RESET });
+    if (!userInfo.isAdmin) {
       navigate('/login');
     }
-  }, [dispatch, navigate, userInfo, successDelete]);
+
+    if (successCreate) {
+      navigate(`/admin/product/${createdProduct._id}/edit`);
+    } else {
+      dispatch(listProducts());
+    }
+  }, [dispatch, navigate, userInfo, successDelete, successCreate]);
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
       // Delete products
       dispatch(deleteProduct(id));
     }
+  };
+
+  const createProductHandler = () => {
+    dispatch(createProduct());
   };
 
   return (
@@ -55,6 +75,8 @@ const ProductListScreen = () => {
       </Row>
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
