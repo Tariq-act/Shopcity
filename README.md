@@ -77,8 +77,7 @@ There was deploy in [render](https://render.com/) platform , frontend and backen
 
 ### Both deployed
 
-[Frontend Here](https://shopcity-app.onrender.com)
-[Backend Here](https://shopcity-api.onrender.com)
+-[Frontend Here](https://shopcity-app.onrender.com) -[Backend Here](https://shopcity-api.onrender.com)
 
 ### Seed Database
 
